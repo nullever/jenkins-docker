@@ -42,6 +42,9 @@ RUN chown -R ${JENKINS_USER} "${JENKINS_HOME}" "${JENKINS_REF}"
 
 RUN curl -fsSL ${PLUGIN_CLI_URL} -o /usr/lib/jenkins-plugin-manager.jar
 
+# COPY /tools/plugins.txt /usr/share/jenkins/ref/plugins.txt
+# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+
 USER ${JENKINS_USER}
 
 # from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup $REF/plugins from a support bundle

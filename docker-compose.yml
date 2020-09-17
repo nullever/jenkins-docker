@@ -21,7 +21,7 @@ services:
         JENKINS_SHA: ${JENKINS_SHA}
         JENKINS_URL: ${JENKINS_URL}
         PLUGIN_CLI_URL: ${PLUGIN_CLI_URL}
-      dockerfile: Dockerfile
+      dockerfile: alpine.dockerfile
     env_file: .env
     ports:
       - ${HTTP_PORT}:${HTTP_PORT}

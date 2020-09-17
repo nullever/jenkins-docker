@@ -1,9 +1,33 @@
-master:
-  build: .
-  environment:
-    JAVA_OPTS: "-Djava.awt.headless=true"
-  ports:
-    - "50000:50000"
-    - "8080:8080"
-  volumes:
-    - /var/jenkins_home
+version: "3.8"
+
+networks:
+  jenkins_net:
+    driver: bridge
+
+volumes:
+  jenkins_data: {}
+
+services:
+  jenkins:
+    build:
+      context: .
+      args:
+        uid: ${uid}
+        gid: ${gid}
+        user: ${user}
+        group: ${group}
+        REF: ${REF}
+        JENKINS_HOME: ${JENKINS_HOME}
+        JENKINS_SHA: ${JENKINS_SHA}
+        JENKINS_URL: ${JENKINS_URL}
+        PLUGIN_CLI_URL: ${PLUGIN_CLI_URL}
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - ${http_port}:${http_port}
+      - ${agent_port}:${agent_port}
+    restart: unless-stopped
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    networks:
+      - jenkins_net

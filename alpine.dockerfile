@@ -42,9 +42,6 @@ RUN chown -R ${JENKINS_USER} "${JENKINS_HOME}" "${JENKINS_REF}"
 
 RUN curl -fsSL ${PLUGIN_CLI_URL} -o /usr/lib/jenkins-plugin-manager.jar
 
-# COPY /tools/plugins.txt /usr/share/jenkins/ref/plugins.txt
-# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
-
 USER ${JENKINS_USER}
 
 # from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup $REF/plugins from a support bundle
@@ -53,5 +50,9 @@ COPY /tools/jenkins-support /usr/local/bin/jenkins-support
 COPY /tools/jenkins.sh /usr/local/bin/jenkins.sh
 COPY /tools/tini-shim.sh /bin/tini
 COPY /tools/jenkins-plugin-cli.sh /bin/jenkins-plugin-cli
+COPY /configs/install-plugins-list.txt /usr/share/jenkins/ref/install-plugins-list.txt
+COPY /configs/create-user.groovy /usr/share/jenkins/ref/init.groovy.d/default-user.groovy
+
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/install-plugins-list.txt
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]

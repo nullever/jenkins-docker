@@ -1,0 +1,7 @@
+command-launcher:latest
+jdk-tool:latest
+git:latest
+github:latest
+matrix-auth:latest
+authorize-project:latest
+bouncycastle-api:latest

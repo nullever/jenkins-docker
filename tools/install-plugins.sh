@@ -23,6 +23,9 @@ set -o pipefail
 echo "WARN: install-plugins.sh is deprecated, please switch to jenkins-plugin-cli"
 
 JENKINS_WAR=${JENKINS_WAR:-/usr/share/jenkins/jenkins.war}
+JENKINS_UC=https://updates.jenkins.io
+JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
+JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 . /usr/local/bin/jenkins-support
 
